@@ -24,17 +24,18 @@ export async function POST(request: NextRequest) {
     const data = await res.json();
     console.log("Fetch complete ! ... ",data);
     if(!data.stt) 
-    {cookies().set('Role',data.RoleId);
+    {
     cookies().set({
         name: 'jwt',
         value: data.jwt,
         httpOnly: true,
-        //secure: true,
+        sameSite: 'none',
+        secure: true,
         path: '/',
       })
     }
     
-    return NextResponse.json(data) 
+    return NextResponse.json(data);
     }
 }
 

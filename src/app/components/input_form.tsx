@@ -127,7 +127,7 @@ export function Form_StorageLocation({init_value, button_title, onSubmit}:{init_
    const load = async () => {
       console.log("load detail")
       const res = await fetch('http://localhost:8080/warehouse_keeper/storage_location/product/load?id='+init_value.id , 
-      { method: 'GET', headers: {'Content-Type': 'application/json'} });
+      { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
           throw new Error('Failed to fetch data')
@@ -273,7 +273,7 @@ export function ImportProductLocations_Form({importProducts, init_details, onSub
 
     useEffect(() => {
       console.log(importProducts);
-      if(storageLocationDetails.length<importProducts.length) // init value for the first time
+      if(storageLocationDetails.length<=importProducts.length) // init value for the first time
         // for(const i in products)
         {setStorageLocationDetails(importProducts.map(()=>([])));
           setMissings(importProducts.map((value)=>(value.productNumber)));  }
@@ -438,11 +438,13 @@ export function ExportProductLocations_Form({exportProducts, init_details, onSub
     const [open, setOpen] = useState(false);
     const currentIndex = useRef(0);
     useEffect(() => {
-      console.log(exportProducts);
-      if(storageLocationDetails.length<exportProducts.length) // init value for the first time
+      console.log('--- export product ---',exportProducts);
+      console.log('---- stdt',storageLocationDetails)
+      if(storageLocationDetails.length<=exportProducts.length) // init value for the first time
         // for(const i in products)
         {setStorageLocationDetails(exportProducts.map(()=>([])));
-          setMissings(exportProducts.map((value)=>(value.productNumber)));  }
+          setMissings(exportProducts.map((value)=>(value.productNumber))); 
+        console.log('missing -----',exportProducts.map((value)=>(value.productNumber))) }
       console.log('set for sld...',exportProducts.map(()=>([]))) ;
     }, [exportProducts]);
 
@@ -806,7 +808,7 @@ export function Personal_Info_Form({button_title, onSubmit}:
     
 
   const c_uid = sessionStorage.getItem('UserId')||'';
-  console.log('userid from cookie:', c_uid)
+  console.log('userid from session storage:', c_uid)
 
   useEffect(()=>{
       load();   
@@ -815,7 +817,7 @@ export function Personal_Info_Form({button_title, onSubmit}:
   const load = async () => {
     console.log("load user info")
     const res = await fetch('http://localhost:8080/userinfo/get?id='+c_uid , 
-    { method: 'GET', headers: {'Content-Type': 'application/json'} });
+    { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data')

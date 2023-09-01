@@ -14,13 +14,14 @@ export const postFormData = async (event:any,link:string, list?:Array<any>, HTTP
         formJson.list = list;
 
       res = await fetch(link, 
-      { method: HTTP_method||'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'} });
+      { method: HTTP_method||'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'}, 
+      credentials: "include" });
     }
     else
     {
       console.log('form with file')
       res = await fetch(link, 
-      { method: HTTP_method||'POST', body: formData });
+      { method: HTTP_method||'POST', body: formData, credentials: "include"  });
     }
     const d = await res.json();
     console.log(d);
@@ -28,9 +29,7 @@ export const postFormData = async (event:any,link:string, list?:Array<any>, HTTP
     location.reload();
   }
 
-
-
-  export const postFormData_UpdateState = async (event:any,link:string, states:Array<any>, setStates:(value:any)=>void, 
+export const postFormData_UpdateState = async (event:any,link:string, states:Array<any>, setStates:(value:any)=>void, 
               HTTP_method?:string) => {
     console.log("Post form & receive msg...", link);
     event.preventDefault();
@@ -45,12 +44,14 @@ export const postFormData = async (event:any,link:string, list?:Array<any>, HTTP
     if(event.target.getAttribute("enctype")!="multipart/form-data")
     {
     res = await fetch(link, 
-    {method: HTTP_method||'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'} });
+    {method: HTTP_method||'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'},
+     credentials: "include" });
     }
     else
     {
+      console.log('form with file');
       res = await fetch(link, 
-    { method: HTTP_method||'POST', body: formData });
+    { method: HTTP_method||'POST', body: formData, credentials: "include"  });
     }
     const d = await res.json();
     console.log(d);

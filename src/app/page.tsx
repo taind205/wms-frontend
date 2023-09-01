@@ -5,22 +5,30 @@ import { redirect } from 'next/navigation'
 import { LoginForm } from './components/input_form'
 
 
-export default function Home() {
+export default async function Home() {
 
   const cookieStore = cookies()
-  // const account = cookieStore.get('AccountId');
-  const role = cookieStore.get('Role')?.value;
+  // // const account = cookieStore.get('AccountId');
+  // const role = cookieStore.get('Role')?.value;
+  const jwt = cookieStore.get('jwt')?.value;
 
-  if(role=='1')
+  if(jwt)
+  {
+  const role = await fetch('http://localhost:8080/role/get', 
+  { method: 'GET', headers: {'Content-Type': 'application/json', 'Authorization': jwt } });
+  const data = await role.json();
+
+  if(data.role==1)
     {redirect('./admin');
     return;}
-  else if(role=='2')
+  else if(data.role==2)
     {redirect('/warehouse_keeper');
     return;}
-  else if(role=='3')
+  else if(data.role==3)
     {redirect('/business');
     return;}
-  
+  }
+  else
   return (
     <main className="flex min-h-screen flex-row items-center justify-center p-24 space-x-16 bg-slate-800">
       <div>

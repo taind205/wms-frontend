@@ -37,7 +37,7 @@ export default function Form() {
         <div className="ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
           <h1 className="text-2xl text-center my-2">Tạo tài khoản mới</h1>
             <form method="post" id="create_account_form" onSubmit={(e) => 
-                        postFormData(e,'./api/create')}>
+                        postFormData(e,'http://localhost:8080/admin/account/create')}>
                 <div className="my-4 flex flex-row justify-center space-x-8">
                   <div className="">
                     <Input_Text label="Tên tài khoản:" placeholder="..." name='accountID'/>

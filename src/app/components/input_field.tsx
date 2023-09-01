@@ -117,7 +117,7 @@ export function Input_Option_QuickSearch({objectName, placeholder, inputName, in
     const loadResult = async (searchKey:string) => {
         console.log("load",searchKey);
         const res = await fetch(load_API +'?name='+ searchKey, 
-        { method: 'GET', headers: {'Content-Type': 'application/json'} });
+        { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary
             throw new Error('Failed to fetch data')
@@ -179,7 +179,7 @@ export function Input_ListOption_QuickSearch({objectName, placeholder, inputName
         if(init_value) {
             console.log("load by id",init_value);
             fetch(loadbyID_API +'?id='+ init_value, 
-            { method: 'GET', headers: {'Content-Type': 'application/json'} }).then((res) => {
+            { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  }).then((res) => {
             if (!res.ok) {
                 throw new Error('Failed to fetch data') // This will activate the closest `error.js` Error Boundary
             } else res.json().then((v) => {console.log(v); setSelects(v);});
@@ -241,7 +241,7 @@ export function Input_ListOption_QuickSearch({objectName, placeholder, inputName
     const loadResult = async (searchKey:string) => {
         console.log("load",searchKey);
         const res = await fetch(load_API +'?name='+ searchKey, 
-        { method: 'GET', headers: {'Content-Type': 'application/json'} });
+        { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary
             throw new Error('Failed to fetch data')

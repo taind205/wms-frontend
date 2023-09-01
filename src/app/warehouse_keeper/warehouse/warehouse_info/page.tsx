@@ -13,7 +13,7 @@ export default function Home() {
       let res:any;
       useEffect(() => {
         res = fetch('http://localhost:8080/admin/warehouse/load?id='+c_wid, 
-      { headers: {'Content-Type': 'application/json'} }).then((r)=> (r.json())).then(j=>{console.log(j); setInfo(j);});
+      { headers: {'Content-Type': 'application/json'}, credentials: "include"  }).then((r)=> (r.json())).then(j=>{console.log(j); setInfo(j);});
       
     }, []);
     

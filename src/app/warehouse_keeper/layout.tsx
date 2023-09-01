@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
 import TopBar from "../components/topbar"
+import { redirect } from "next/navigation"
 
 const pages=[
   // {id:1, name:'Quản lý tài khoản', link:'../accounts'},
@@ -19,11 +20,38 @@ const childpages=[
   {id:5, name:'Thông tin kho', link:'warehouse_keeper/warehouse/warehouse_info'},
 ]
 
-export default function WarehouseKeeper_Layout({
+export default async function WarehouseKeeper_Layout({
     children,
   }: {
     children: React.ReactNode
   }) {
+
+    const cookieStore = cookies()
+  // // const account = cookieStore.get('AccountId');
+  // const role = cookieStore.get('Role')?.value;
+  const jwt = cookieStore.get('jwt')?.value;
+
+  if(!jwt)
+    { redirect('/'); return;}
+    else
+    {
+    const role = await fetch('http://localhost:8080/role/get', 
+    { method: 'GET', headers: {'Content-Type': 'application/json', 'Authorization': jwt } });
+    const data = await role.json();
+  
+    if(data.role==1)
+      {redirect('/admin');
+      return;}
+    else 
+    // if(data.role==2)
+    //   {redirect('/warehouse_keeper');
+    //   return;}
+    // else 
+    if(data.role==3)
+      {redirect('/business');
+      return;}
+    else
+
     return <>
       <div className="sticky top-0 z-10">
       <TopBar pages={pages} childpages={childpages}/>
@@ -32,4 +60,5 @@ export default function WarehouseKeeper_Layout({
       {children}
       </div>
       </>
+      }
   }

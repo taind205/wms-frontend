@@ -22,7 +22,7 @@ useEffect(()=>{
   const load = async () => {
     console.log("load price")
     const res = await fetch('http://localhost:8080/business/product/prices/?id='+init_value.id , 
-    { method: 'GET', headers: {'Content-Type': 'application/json'} });
+    { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data')
@@ -115,7 +115,7 @@ export function ReportForm({View, InputFields, Report_API, compareFnc, dataHandl
         console.log("load")
         console.log(searchObjectRef.current);
         const res = await fetch(Report_API +'?'+ new URLSearchParams(searchObjectRef.current).toString(), 
-        { method: 'GET', headers: {'Content-Type': 'application/json'} });
+        { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary
             throw new Error('Failed to fetch data')

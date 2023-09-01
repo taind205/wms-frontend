@@ -42,7 +42,10 @@ export function SearchForm_WithView({View, UpdateForm, CustomForm, InputFields, 
         console.log("load")
         console.log(searchObjectRef.current);
         const res = await fetch(load_API +'?'+ new URLSearchParams(searchObjectRef.current).toString(), 
-        { method: 'GET', headers: {'Content-Type': 'application/json'} });
+        { method: 'GET', headers: {'Content-Type': 'application/json', 
+        // 'Access-Control-Allow-Credentials': 'true', 
+        // 'Access-Control-Allow-Origin':'http://localhost:8080'
+        }, credentials: "include" });
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary
             throw new Error('Failed to fetch data')
@@ -154,7 +157,7 @@ export function SearchPickerForm_WithView({View, onPickItem, searchInputFields, 
         console.log("load")
         console.log(searchObjectRef.current);
         const res = await fetch(load_API +'?'+ new URLSearchParams(searchObjectRef.current).toString(), 
-        { method: 'GET', headers: {'Content-Type': 'application/json'} });
+        { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include" });
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary
             throw new Error('Failed to fetch data')

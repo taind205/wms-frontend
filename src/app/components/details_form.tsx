@@ -5,7 +5,7 @@ import { Store_SmallView, Warehouse_SmallView } from "./image_view";
 import Button from "@mui/material/Button";
 import { ExportProductLocations_Form, ImportProductLocations_Form } from "./input_form";
 import { postFormData } from "../func/form_action";
-import { getCookies } from "../func/cookies";
+//import { getCookies } from "../func/cookies";
 // import { cookies } from "next/headers";
 
 const categoryName = ['Không xác định', 'Loại hàng hóa', 'Thương Hiệu', 'Đóng gói', 'Thể tích', 'Khối lượng'];
@@ -22,8 +22,8 @@ export function ImportDetails_Form({item}:{item:any}){
     useEffect(()=>{
         load();
         console.log(item);
-        getCookies('Role').then((v)=>{
-          setRole(v);
+        fetch('http://localhost:8080/role/get',{credentials:"include"}).then((v)=>v.json()).then((v)=>{
+          setRole(v.role);
           setStatus(item.StatusId);})        
     }, [])
 
@@ -32,7 +32,7 @@ export function ImportDetails_Form({item}:{item:any}){
     const load = async () => {
       console.log("load detail")
       const res = await fetch('http://localhost:8080/warehouse_keeper/import/detail/load?id='+item.id , 
-      { method: 'GET', headers: {'Content-Type': 'application/json'} });
+      { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
           throw new Error('Failed to fetch data')
@@ -62,7 +62,7 @@ export function ImportDetails_Form({item}:{item:any}){
         //reqbody.note=item.note;
       }
       const res = await fetch('http://localhost:8080/warehouse_keeper/import/update', 
-      { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'} });
+      { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
           throw new Error('Failed to fetch data')
@@ -142,8 +142,8 @@ export function ExportDetails_Form({item}:{item:any}){
     useEffect(()=>{
         load();
         console.log(item);
-        getCookies('Role').then((v)=>{
-          setRole(v);
+        fetch('http://localhost:8080/role/get',{credentials:"include"}).then((v)=>v.json()).then((v)=>{
+          setRole(v.role);
             setStatus(item.StatusId);})     
     }, [])
 
@@ -152,7 +152,7 @@ export function ExportDetails_Form({item}:{item:any}){
     const load = async () => {
       console.log("load detail")
       const res = await fetch('http://localhost:8080/warehouse_keeper/export/detail/load?id='+item.id , 
-      { method: 'GET', headers: {'Content-Type': 'application/json'} });
+      { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
           throw new Error('Failed to fetch data')
@@ -182,7 +182,7 @@ export function ExportDetails_Form({item}:{item:any}){
         reqbody.note=item.note;
       }
       const res = await fetch('http://localhost:8080/warehouse_keeper/export/update', 
-      { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'} });
+      { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
           throw new Error('Failed to fetch data')
