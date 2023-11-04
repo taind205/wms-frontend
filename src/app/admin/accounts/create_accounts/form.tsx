@@ -1,5 +1,6 @@
 'use client'
 
+import { API } from "@/app/api/const"
 import { Input_Option, Input_Text } from "@/app/components/input_field"
 import { postFormData } from "@/app/func/form_action"
 
@@ -37,10 +38,10 @@ export default function Form() {
         <div className="ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
           <h1 className="text-2xl text-center my-2">Tạo tài khoản mới</h1>
             <form method="post" id="create_account_form" onSubmit={(e) => 
-                        postFormData(e,'http://localhost:8080/admin/account/create')}>
+                        postFormData(e,API.acc.create)}>
                 <div className="my-4 flex flex-row justify-center space-x-8">
                   <div className="">
-                    <Input_Text label="Tên tài khoản:" placeholder="..." name='accountID'/>
+                    <Input_Text label="Tên tài khoản:" placeholder="..." name='id'/>
                     <Input_Text label="Họ tên người dùng:" placeholder="..." name='fullName'/>
                     <Input_Option label="Giới tính:" name="gender" form="create_account_form" options={[
                             {value:"0",name:"Nam"}, {value:"1",name:"Nữ"}

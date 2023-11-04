@@ -1,6 +1,7 @@
 import { cookies } from "next/headers"
 import TopBar from "../components/topbar"
 import { redirect } from "next/navigation"
+import { API } from "../api/const"
 
 const pages=[
   // {id:1, name:'Quản lý tài khoản', link:'../accounts'},
@@ -35,7 +36,7 @@ export default async function WarehouseKeeper_Layout({
     { redirect('/'); return;}
     else
     {
-    const role = await fetch('http://localhost:8080/role/get', 
+    const role = await fetch(API.role, 
     { method: 'GET', headers: {'Content-Type': 'application/json', 'Authorization': jwt } });
     const data = await role.json();
   

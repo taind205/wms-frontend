@@ -7,6 +7,7 @@ import { postFormData } from "@/app/func/form_action"
 import {SearchForm_WithView} from "@/app/components/searchform_withview"
 import { Input_Option, Input_Text } from "@/app/components/input_field"
 import { Tag_Table } from "@/app/components/table"
+import { API } from "@/app/api/const"
 
 const categoryName = ['Loại hàng hóa', 'Thương Hiệu', 'Đóng gói', 'Thể tích', 'Khối lượng'];
 export default function Home() {
@@ -18,9 +19,9 @@ export default function Home() {
         <div className="flex flex-col ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
           <h1 className="text-2xl text-center my-2">Thêm nhãn hàng hóa mới</h1>
           <ProductTagForm button_title='Thêm nhãn hàng hóa' onSubmit={(e:any) => 
-                            postFormData(e,'http://localhost:8080/business/product_tag/add')}/>
-          <SearchForm_WithView  View={Tag_Table} UpdateForm={ProductTagForm} load_API="http://localhost:8080/business/product_tag/load" 
-          update_API="http://localhost:8080/business/product_tag/update"
+                            postFormData(e,API.product_tag.add)}/>
+          <SearchForm_WithView  View={Tag_Table} UpdateForm={ProductTagForm} load_API={API.product_tag.load} 
+          update_API={API.product_tag.update}
           objectName="nhãn hàng hóa" loadSize={5} InputFields={<>
             <Input_Text label="Tên nhãn hóa:" placeholder="(Bất kỳ)" name='name'/>
             <Input_Option label="Loại nhãn hàng hóa:" name='CategoryId' options={categoryName.map((v,i)=>({name:v,value:i+1}))}/>

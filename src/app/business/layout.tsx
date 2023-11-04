@@ -1,6 +1,7 @@
 import { cookies } from "next/headers"
 import TopBar from "../components/topbar"
 import { redirect } from "next/navigation"
+import { API } from "../api/const"
 
 const pages=[
   {id:1, name:'Hàng hóa', link:'../products'},
@@ -35,7 +36,7 @@ export default async function BusinessLayout({
     { redirect('/'); return;}
     else
     {
-    const role = await fetch('http://localhost:8080/role/get', 
+    const role = await fetch(API.role, 
     { method: 'GET', headers: {'Content-Type': 'application/json', 'Authorization': jwt } });
     const data = await role.json();
   

@@ -1,5 +1,6 @@
 'use client'
 
+import { API } from "@/app/api/const"
 import { Input_Image, Input_ListOption_QuickSearch, Input_Option, Input_Option_Unit, Input_Text, Input_TextArea } from "@/app/components/input_field"
 import { ProductTag_DisplayText, ProductTag_ItemView } from "@/app/components/item_view"
 import { ProductPrice_Table } from "@/app/components/table"
@@ -7,7 +8,7 @@ import { postFormData } from "@/app/func/form_action"
 import { useEffect, useRef, useState } from "react"
 // const API = isUpdateForm ? 'http://localhost:8080/admin/product/update' : 'http://localhost:8080/admin/product/create'
 // const method = isUpdateForm ? 'POST' : 'POST' //upload thing, post should be use in the update form, not put...
-const getProductImage='http://localhost:8080/business/product/img/'
+const getProductImage=API.product.img;
 
 export function ProductForm({init_value, button_title, onSubmit}:
                         {init_value?:any,button_title:string, onSubmit:any}) {
@@ -21,7 +22,7 @@ useEffect(()=>{
 
   const load = async () => {
     console.log("load price")
-    const res = await fetch('http://localhost:8080/business/product/prices/?id='+init_value.id , 
+    const res = await fetch(API.product.prices+'/?id='+init_value.id , 
     { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
@@ -55,8 +56,8 @@ useEffect(()=>{
               <Input_Option label="Trạng thái hàng hóa:" name='StatusId' init_value={init_value?.StatusId}
                     options={[{value:'1',name:'Khả dụng'}]}/>
               <Input_ListOption_QuickSearch objectName='Nhãn hàng hóa' placeholder="Thêm nhãn hàng hóa..." inputName="tags" 
-                load_API="http://localhost:8080/business/product_tag/load" 
-                loadbyID_API="http://localhost:8080/business/product_tag/load_byProductId"
+                load_API={API.product_tag.load} 
+                loadbyID_API={API.product_tag.load_byprd}
                 init_value={init_value?.id}
                 SelectedItemView={ProductTag_ItemView} ResultText={ProductTag_DisplayText}/>
               </div>

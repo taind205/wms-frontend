@@ -4,6 +4,7 @@
 import Products_Sidebar from "../sidebar"
 import {ProductForm} from "../form"
 import { postFormData } from "@/app/func/form_action"
+import { API } from "@/app/api/const"
 
 export default function Home() {
     // 
@@ -14,7 +15,7 @@ export default function Home() {
         <div className="ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
           <h1 className="text-2xl text-center my-2">Thêm hàng hóa mới</h1>
             <ProductForm button_title='Thêm sản phẩm' onSubmit={(e:any) => 
-                              postFormData(e,'http://localhost:8080/business/product/add')}/>
+                              postFormData(e,API.product.add)}/>
 
         </div>
       </main>

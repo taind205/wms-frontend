@@ -4,6 +4,7 @@ import {InputForm_Store, InputForm_Warehouse} from "@/app/components/input_form"
 // import { useState } from "react";
 import Stores_Warehouses_Sidebar from "../sidebar"
 import { postFormData } from "@/app/func/form_action"
+import { API } from "@/app/api/const"
 
 export default function Home() {
     // 
@@ -14,7 +15,7 @@ export default function Home() {
         <div className="ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
           <h1 className="text-2xl text-center my-2">Thêm kho mới</h1>
             <InputForm_Store button_title='Thêm cửa hàng' isUpdateForm={false} onSubmit={(e:any) => 
-                              postFormData(e,'http://localhost:8080/admin/store/add')}/>
+                              postFormData(e,API.store.add)}/>
 
         </div>
       </main>

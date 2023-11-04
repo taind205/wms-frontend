@@ -3,6 +3,7 @@
 import { Warehouse_ImageList_View } from "@/app/components/imagelist_view"
 import Warehouse_Sidebar from "../sidebar"
 import { useEffect, useState } from "react";
+import { API } from "@/app/api/const";
 
 export default function Home() {
   const [info,setInfo] = useState<any[]>([]);
@@ -12,7 +13,7 @@ export default function Home() {
   console.log("get info...")
       let res:any;
       useEffect(() => {
-        res = fetch('http://localhost:8080/admin/warehouse/load?id='+c_wid, 
+        res = fetch(API.warehouse.load+'?id='+c_wid, 
       { headers: {'Content-Type': 'application/json'}, credentials: "include"  }).then((r)=> (r.json())).then(j=>{console.log(j); setInfo(j);});
       
     }, []);

@@ -1,3 +1,4 @@
+import { API } from '@/app/api/const';
 import { NextResponse, type NextRequest } from 'next/server'
  
 export async function POST(request: NextRequest) {
@@ -5,7 +6,7 @@ export async function POST(request: NextRequest) {
     console.log(input);
     const reqbody = {update_info:input}
 
-    const res = await fetch('http://localhost:8080/admin/account/update', 
+    const res = await fetch(API.acc.update, 
     { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'} });
                 
     const data = await res.json();

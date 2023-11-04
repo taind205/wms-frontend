@@ -6,14 +6,15 @@ import { Input_Option, Input_Text } from "@/app/components/input_field"
 import {SearchForm_WithView} from "@/app/components/searchform_withview"
 import { Warehouse_ImageList_View } from "@/app/components/imagelist_view"
 import { InputForm_Warehouse } from "@/app/components/input_form"
+import { API } from "@/app/api/const"
 
 export default function Home() {
     return (
       <main className="min-h-screen">
         <Accounts_Sidebar current_tab_id={2}/>
         <div className="flex flex-col items-center ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
-          <SearchForm_WithView View={Warehouse_ImageList_View} UpdateForm={InputForm_Warehouse} load_API="http://localhost:8080/admin/warehouse/load" 
-          update_API="http://localhost:8080/admin/warehouse/update" 
+          <SearchForm_WithView View={Warehouse_ImageList_View} UpdateForm={InputForm_Warehouse} load_API={API.warehouse.load} 
+          update_API={API.warehouse.update} 
           objectName="kho" InputFields={<>
             <Input_Text label="Tên kho:" placeholder="(Bất kỳ)" name='name'/>
             <Input_Text label="Địa chỉ kho:" placeholder="(Bất kỳ)" name='address'/>

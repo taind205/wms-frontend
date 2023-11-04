@@ -5,6 +5,7 @@ import { Store_SmallView, Warehouse_SmallView } from "./image_view";
 import Button from "@mui/material/Button";
 import { ExportProductLocations_Form, ImportProductLocations_Form } from "./input_form";
 import { postFormData } from "../func/form_action";
+import { API } from "../api/const";
 //import { getCookies } from "../func/cookies";
 // import { cookies } from "next/headers";
 
@@ -22,7 +23,7 @@ export function ImportDetails_Form({item}:{item:any}){
     useEffect(()=>{
         load();
         console.log(item);
-        fetch('http://localhost:8080/role/get',{credentials:"include"}).then((v)=>v.json()).then((v)=>{
+        fetch(API.role,{credentials:"include"}).then((v)=>v.json()).then((v)=>{
           setRole(v.role);
           setStatus(item.StatusId);})        
     }, [])
@@ -31,7 +32,7 @@ export function ImportDetails_Form({item}:{item:any}){
 
     const load = async () => {
       console.log("load detail")
-      const res = await fetch('http://localhost:8080/warehouse_keeper/import/detail/load?id='+item.id , 
+      const res = await fetch(API.import.load_details+'?id='+item.id , 
       { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
@@ -61,7 +62,7 @@ export function ImportDetails_Form({item}:{item:any}){
         setStatus(4);
         //reqbody.note=item.note;
       }
-      const res = await fetch('http://localhost:8080/warehouse_keeper/import/update', 
+      const res = await fetch(API.import.update, 
       { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
@@ -87,7 +88,7 @@ export function ImportDetails_Form({item}:{item:any}){
             <div className="text-2xl">Nhập kho</div>
           :<></>}
           <ImportProductLocations_Form importProducts={importProducts} viewOnly={(status!=2||role!=2)} onSubmit={(e:any,list:[]) => 
-                            {postFormData(e,'http://localhost:8080/warehouse_keeper/import/update',list); setStatus(3);}}/>
+                            {postFormData(e,API.import.update,list); setStatus(3);}}/>
           <input form='ImportProductLocations_Form' name='id' value={item.id} type='hidden'/>
           <input form='ImportProductLocations_Form' name='StatusId' value={3} type='hidden'/>
           
@@ -142,7 +143,7 @@ export function ExportDetails_Form({item}:{item:any}){
     useEffect(()=>{
         load();
         console.log(item);
-        fetch('http://localhost:8080/role/get',{credentials:"include"}).then((v)=>v.json()).then((v)=>{
+        fetch(API.role,{credentials:"include"}).then((v)=>v.json()).then((v)=>{
           setRole(v.role);
             setStatus(item.StatusId);})     
     }, [])
@@ -151,7 +152,7 @@ export function ExportDetails_Form({item}:{item:any}){
 
     const load = async () => {
       console.log("load detail")
-      const res = await fetch('http://localhost:8080/warehouse_keeper/export/detail/load?id='+item.id , 
+      const res = await fetch(API.export.load_details+'?id='+item.id , 
       { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
@@ -181,7 +182,7 @@ export function ExportDetails_Form({item}:{item:any}){
         setStatus(4);
         reqbody.note=item.note;
       }
-      const res = await fetch('http://localhost:8080/warehouse_keeper/export/update', 
+      const res = await fetch(API.export.update, 
       { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
@@ -204,7 +205,7 @@ export function ExportDetails_Form({item}:{item:any}){
             <div className="text-2xl">Xuất kho</div>
           :<></>}
           <ExportProductLocations_Form exportProducts={exportProducts} viewOnly={(status!=2||role!=2)} onSubmit={(e:any,list:[]) => 
-                            {postFormData(e,'http://localhost:8080/warehouse_keeper/export/update',list); setStatus(3);}}/>
+                            {postFormData(e,API.export.update,list); setStatus(3);}}/>
           <input form='ExportProductLocations_Form' name='id' value={item.id} type='hidden'/>
           <input form='ExportProductLocations_Form' name='StatusId' value={3} type='hidden'/>
           

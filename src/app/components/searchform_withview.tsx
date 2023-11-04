@@ -221,6 +221,7 @@ export function SearchPickerForm_WithView({View, onPickItem, searchInputFields, 
                 <View stateful_items={stateful_items} onSelectItem={(i:any)=>setSelectedItem(i)} selectItemId={selectedItem.id}/>
                 <LoadMore_Button endLoad={endLoad} noResult={stateful_items?.length==0} loadmore={() => load(false)}/>
             </div>
+            {onPickItem?
             <div className="sticky flex bottom-0 bg-sky-600 text-white justify-end items-center translate-y-1">
                 <div className="w-5/6 text-right mx-4 text-xl">Đã chọn: {selectedItem.name}</div>
                 <button type="button" className="m-4 p-3 w-1/6 rounded bg-sky-500 hover:bg-sky-400 text-white text-xl"
@@ -228,7 +229,7 @@ export function SearchPickerForm_WithView({View, onPickItem, searchInputFields, 
                     <span className="inline-flex items-baseline">Xác nhận 
                     <img className="self-center mx-2 h-6 w-auto" src='/icon/next.png'/></span>
                 </button>
-            </div>
+            </div>:<></>}
         </>
     )
 }

@@ -3,6 +3,7 @@ import { Input_Text } from './components/input_field'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { LoginForm } from './components/input_form'
+import { API } from './api/const'
 
 
 export default async function Home() {
@@ -14,7 +15,7 @@ export default async function Home() {
 
   if(jwt)
   {
-  const role = await fetch('http://localhost:8080/role/get', 
+  const role = await fetch(API.role, 
   { method: 'GET', headers: {'Content-Type': 'application/json', 'Authorization': jwt } });
   const data = await role.json();
 

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
+import { API } from '@/app/api/const';
 
  
 export async function POST(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
     const q4 = input.role ? '&role='+input.role : '';
     const q5 = input.status ? '&status='+input.status : '';
     console.log("start fetch"+'/account/load/'+q1+'?'+q2+q3+q4+q5);
-    const res = await fetch('http://localhost:8080/admin/account/load/'+q1+'?'+q2+q3+q4+q5, {
+    const res = await fetch(API.acc.load+'/'+q1+'?'+q2+q3+q4+q5, {
         cache: 'no-store' , headers: {'Content-Type': 'application/json', 'Authorization': jwt}, });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
 
 export async function getFirstPage() {
 
-    const res = await fetch('http://localhost:8080/admin/account/load/0', {  cache: 'no-store',
+    const res = await fetch(API.acc.load+'/0', {  cache: 'no-store',
             headers: {'Content-Type': 'application/json',}, });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary

@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { postFormData } from '../func/form_action';
+import { API } from '../api/const';
 
 export default function TopBar({pages, childpages}:{pages:any, childpages:Array<any>}) {
     const [open, setOpen] = useState(false);
@@ -120,7 +121,7 @@ export default function TopBar({pages, childpages}:{pages:any, childpages:Array<
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
                     <Personal_Info_Form button_title='Cập nhật thông tin' onSubmit={(e:any) => 
-                              postFormData(e,'http://localhost:8080/userinfo/update')}/>
+                              postFormData(e,API.userinfo.update)}/>
                 </Typography>
             </Box>
         </Modal>

@@ -3,12 +3,13 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { DateDisplay } from "../func/convert"
+import { API } from "../api/const"
 
 
-const getStoreImage='http://localhost:8080/admin/store/img/'
-const getWarehouseImage='http://localhost:8080/admin/warehouse/img/'
-const getStorageLocationImage='http://localhost:8080/warehouse_keeper/storage_location/img/'
-const getProductImage='http://localhost:8080/business/product/img/'
+const getStoreImage=API.store.img
+const getWarehouseImage=API.warehouse.img
+const getStorageLocationImage=API.st_lct.img
+const getProductImage=API.product.img
 
 export function Image_Text_View1({item, index, onEditBtnClick, onSelect, isSelected, View_Image, View_Text}:
             {item:{id:number, name:string, address: string, description:string, User:{fullname:string}, updatedAt:string},
@@ -108,13 +109,13 @@ export function StorageLocation_View({item, index, onEditBtnClick, onSelect, isS
     )
 }
 
-export function Product_View_sm({item, onEditBtnClick, new_img_upload_obj_url}:
-    {item:{id:number, name:string},onEditBtnClick:any, new_img_upload_obj_url?:string}) {
+export function Product_View_sm({item, onEditBtnClick, onInventoryBtnClick, new_img_upload_obj_url}:
+    {item:{id:number, name:string},onEditBtnClick:any, onInventoryBtnClick:any, new_img_upload_obj_url?:string}) {
 
     const [showOptions,setShowOptions] = useState(false)
 
 const fade_style = { top:"0%", right:"0%", bot:"0%", left:"0%", backgroundColor:"#00000080" };
-
+const btn_style = "pl-1.5 py-1 text-left bg-sky-300 hover:bg-sky-400 text-black";
 return(
 <div style={{minWidth:"120px"}} className="flex flex-col justify-start items-center p-3 rounded-2xl bg-slate-300 h-60 space-y-3">
     <div onMouseEnter={() => setShowOptions(true)} onMouseLeave={() => setShowOptions(false)} 
@@ -123,9 +124,10 @@ return(
         {showOptions &&
         <div style={fade_style} className='absolute rounded-xl w-full h-full' >
             <div className="flex flex-col w-1/3 text-sm">
-                <button className="px-2 py-1 text-left bg-sky-300 hover:bg-sky-400 text-black">Nhập...</button>
-                <button className="px-2 py-1 text-left bg-sky-300 hover:bg-sky-400 text-black">Xuất...</button>
-                <button onClick={onEditBtnClick} className="px-2 py-1 text-left bg-sky-300 hover:bg-sky-400 text-black">Chi tiết</button>
+                <button className={btn_style}>Nhập...</button>
+                <button className={btn_style}>Xuất...</button>
+                <button onClick={onEditBtnClick} className={btn_style}>Chi tiết</button>
+                <button onClick={onInventoryBtnClick} className={btn_style}>Tồn kho</button>
             </div>
         </div>}
     </div>

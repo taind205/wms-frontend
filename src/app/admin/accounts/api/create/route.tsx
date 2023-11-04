@@ -1,3 +1,4 @@
+import { API } from '@/app/api/const';
 import { NextResponse, type NextRequest } from 'next/server'
  
 export async function POST(request: NextRequest) {
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
     // console.log(reqbody);
     // console.log(JSON.stringify(reqbody));
 
-    const res = await fetch('http://localhost:8080/admin/account/create', 
+    const res = await fetch(API.acc.create, 
     { method: 'POST', body: JSON.stringify(reqbody), headers: {'Content-Type': 'application/json'} });
                 
     const data = await res.json();

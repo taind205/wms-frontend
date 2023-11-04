@@ -5,6 +5,7 @@ import { Input_Option, Input_Text } from "@/app/components/input_field"
 import {SearchForm_WithView} from "@/app/components/searchform_withview"
 import {ProductForm} from '../form';
 import { Product_ImageList_View } from "@/app/components/imagelist_view"
+import { API } from "@/app/api/const"
 
 // bg-white text-slate-700 dark:bg-slate-700 dark:text-slate-300
 
@@ -13,8 +14,8 @@ export default function Home() {
       <main className="min-h-screen">
         <Products_Sidebar current_tab_id={2}/>
         <div className="flex flex-col items-center ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
-          <SearchForm_WithView View={Product_ImageList_View} UpdateForm={ProductForm} load_API="http://localhost:8080/business/product/load" 
-          update_API="http://localhost:8080/business/product/update" 
+          <SearchForm_WithView View={Product_ImageList_View} UpdateForm={ProductForm} load_API={API.product.load} 
+          update_API={API.product.update} 
           objectName="hàng hóa" loadSize={4} InputFields={<>
             <Input_Text label="Tên hàng hóa:" placeholder="(Bất kỳ)" name='name'/>
             <Input_Text label="Mô tả hàng hóa:" placeholder="(Bất kỳ)" name='description'/>

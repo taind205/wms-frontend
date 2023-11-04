@@ -13,10 +13,11 @@ import Box from "@mui/material/Box";
 import { ExportDetail_Table, Export_StorageLocation_Table, ImportDetail_Table, ProductBatch_Table, StorageLocationDetail_Table } from "@/app/components/table";
 import { Product_ImageList_View, StorageLocation_ImageList_View, Store_ImageList_View, Warehouse_ImageList_View } from "@/app/components/imagelist_view";
 import { Import_InfoView } from "./details_form";
+import { API } from "../api/const";
 
-const getWarehouseImage='http://localhost:8080/admin/warehouse/img/'
-const getStoreImage='http://localhost:8080/admin/store/img/'
-const getStorageLocationImage='http://localhost:8080/warehouse_keeper/storage_location/img/'
+const getWarehouseImage=API.warehouse.img
+const getStoreImage=API.store.img
+const getStorageLocationImage=API.st_lct.img
 
 export function LoginForm() {
 
@@ -28,6 +29,8 @@ export function LoginForm() {
     let res:any;
     let formJson:any;
     formJson = Object.fromEntries(formData.entries());
+    if(!formJson.id) { alert("Chưa nhập tên tài khoản! ErrCode:id_"); return;} 
+    if(!formJson.password) { alert("Chưa nhập mật khẩu! ErrCode:"); return;} 
 
     res = await fetch('./login', 
     { method: 'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'} });
@@ -54,7 +57,7 @@ export function LoginForm() {
 export function InputForm_Warehouse({init_value, button_title, isUpdateForm, onSubmit}:
                         {init_value?:any,button_title:string,isUpdateForm:boolean, onSubmit:any}) {
 
-    const API = isUpdateForm ? 'http://localhost:8080/admin/warehouse/update' : 'http://localhost:8080/admin/warehouse/create'
+    const formAPI = isUpdateForm ? API.warehouse.update : API.warehouse.add
     const method = isUpdateForm ? 'POST' : 'POST' //upload thing, post should be use
     const c_uid = sessionStorage.getItem('UserId')||'';
     console.log('userid from cookie:', c_uid);
@@ -69,8 +72,8 @@ export function InputForm_Warehouse({init_value, button_title, isUpdateForm, onS
                 <Input_Text label="Địa chỉ kho:" placeholder="Địa chỉ kho..." name='address' init_value={init_value?.address}/>
                 <Input_ListOption_QuickSearch objectName="Thủ kho" inputName="keepers" placeholder="Thêm thủ kho..."
                          init_value={init_value?.id} 
-                         load_API="http://localhost:8080/admin/warehouse_keeper/load_available"
-                         loadbyID_API="http://localhost:8080/admin/warehouse_keeper/load"
+                         load_API={API.warehouse.load_av_wk}
+                         loadbyID_API={API.warehouse.load_wk}
                          SelectedItemView={WarehouseKeeper_ItemView}
                          ResultText={WarehouseKeeper_DisplayText}/>
               </div>
@@ -126,7 +129,7 @@ export function Form_StorageLocation({init_value, button_title, onSubmit}:{init_
                     
    const load = async () => {
       console.log("load detail")
-      const res = await fetch('http://localhost:8080/warehouse_keeper/storage_location/product/load?id='+init_value.id , 
+      const res = await fetch(API.st_lct.load_prd+'?id='+init_value.id , 
       { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
       if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
@@ -243,7 +246,7 @@ export function Import_Form({init_value, button_title, onSubmit}:{init_value?:an
                         <Input_Text label="Tên kho:" placeholder="(Bất kỳ)" name='name'/>
                         <Input_Text label="Địa chỉ kho:" placeholder="(Bất kỳ)" name='address'/>
                         <Input_Text label="Mô tả kho:" placeholder="(Bất kỳ)" name='description'/>
-                    </>} load_API="http://localhost:8080/admin/warehouse/load" loadSize={2}/>
+                    </>} load_API={API.warehouse.load} loadSize={2}/>
                     : <></>}
                     { modalNum==2 ?
                      <SearchPickerForm_WithView objectName="Hàng hóa" View={Product_ImageList_View} 
@@ -252,7 +255,7 @@ export function Import_Form({init_value, button_title, onSubmit}:{init_value?:an
                      <>
                         <Input_Text label="Tên hàng hóa:" placeholder="(Bất kỳ)" name='name'/>
                         <Input_Text label="Mô tả hàng hóa:" placeholder="(Bất kỳ)" name='description'/>
-                     </>} load_API="http://localhost:8080/business/product/load" loadSize={4}/>
+                     </>} load_API={API.product.load} loadSize={4}/>
                     : <></>} 
                 </Typography>
             </Box>
@@ -421,7 +424,7 @@ export function ImportProductLocations_Form({importProducts, init_details, onSub
                       <input type="hidden" name='WarehouseId' value={c_wid}/>
                       <Input_Text label="Tên vị trí lưu trữ:" placeholder="(Bất kỳ)" name='name'/>
                       <Input_Text label="Mô tả:" placeholder="(Bất kỳ)" name='description'/>
-                  </>} load_API="http://localhost:8080/warehouse_keeper/storage_location/load" loadSize={4}
+                  </>} load_API={API.st_lct.load} loadSize={4}
                    initSearchObj={{n:0,WarehouseId:c_wid}}/>
               </Typography>
           </Box>
@@ -589,7 +592,7 @@ export function ExportProductLocations_Form({exportProducts, init_details, onSub
                       <input type="hidden" name='id' value={exportProducts[currentIndex.current]?.id}></input>
                       <Input_Text label="Tên vị trí lưu trữ:" placeholder="(Bất kỳ)" name='name'/>
                       <Input_Text label="Mô tả:" placeholder="(Bất kỳ)" name='description'/>
-                  </>} load_API="http://localhost:8080/warehouse_keeper/storage_location/load_byProductId" loadSize={4}
+                  </>} load_API={API.st_lct.load_byprd} loadSize={4}
                   initSearchObj={{n:0, id:exportProducts[currentIndex.current]?.id}} />
               </Typography>
           </Box>
@@ -773,7 +776,7 @@ export function Export_Form({init_value, button_title, onSubmit}:{init_value?:an
                         <Input_Text label="Tên cửa hàng:" placeholder="(Bất kỳ)" name='name'/>
                         <Input_Text label="Địa chỉ cửa hàng:" placeholder="(Bất kỳ)" name='address'/>
                         <Input_Text label="Mô tả cửa hàng:" placeholder="(Bất kỳ)" name='description'/>
-                    </>} load_API="http://localhost:8080/admin/store/load" loadSize={2}/>
+                    </>} load_API={API.store.load} loadSize={2}/>
                     : <></>}
               { modalNum==2 ?
                 <SearchPickerForm_WithView objectName="Hàng hóa" View={Product_ImageList_View} 
@@ -782,7 +785,7 @@ export function Export_Form({init_value, button_title, onSubmit}:{init_value?:an
                 <>
                     <Input_Text label="Tên hàng hóa:" placeholder="(Bất kỳ)" name='name'/>
                     <Input_Text label="Mô tả hàng hóa:" placeholder="(Bất kỳ)" name='description'/>
-                </>} load_API="http://localhost:8080/business/product/load" loadSize={4}/>
+                </>} load_API={API.product.load} loadSize={4}/>
                 : <></>}
               { modalNum==3 ?
                 <SearchPickerForm_WithView objectName="Lô hàng hóa" View={ProductBatch_Table}
@@ -792,7 +795,7 @@ export function Export_Form({init_value, button_title, onSubmit}:{init_value?:an
                     <input type='hidden' value={products[currentIndex.current].id} name='id'></input>
                     <Input_Text label="Kho:" placeholder="(Bất kỳ)" name='WarehouseName'/>
                 </>} initSearchObj={{n:0, id:products[currentIndex.current].id}}
-                load_API="http://localhost:8080/business/product_batch/load_byProductId" loadSize={3}/>
+                load_API={API.product.load_batch} loadSize={3}/>
               : <></>}
               </Typography>
           </Box>
@@ -816,7 +819,7 @@ export function Personal_Info_Form({button_title, onSubmit}:
 
   const load = async () => {
     console.log("load user info")
-    const res = await fetch('http://localhost:8080/userinfo/get?id='+c_uid , 
+    const res = await fetch(API.userinfo.load+'?id='+c_uid , 
     { method: 'GET', headers: {'Content-Type': 'application/json'}, credentials: "include"  });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary

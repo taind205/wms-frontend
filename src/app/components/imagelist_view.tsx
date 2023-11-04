@@ -11,14 +11,22 @@
 // import { Input_Option, Input_Text } from '@/app/components/input_field';
 // import { postFormData, postFormData_UpdateState } from '@/app/func/form_action';
 // import { LoadMore_Button } from '@/app/components/button';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Product_View_ViewOnly, StorageLocation_View, Image_Text_View1 } from '@/app/components/image_view';
 import { Product_View_sm } from '@/app/components/image_view';
 import { DateDisplay } from '../func/convert';
 
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { SearchPickerForm_WithView } from './searchform_withview';
+import { ProductBatch_Table } from './table';
+import { Input_Text } from './input_field';
+import { API } from '../api/const';
 
-const getStoreImage='http://localhost:8080/admin/store/img/'
-const getWarehouseImage='http://localhost:8080/admin/warehouse/img/'
+
+const getStoreImage=API.store.img;
+const getWarehouseImage=API.warehouse.img;
 
 // const style = {
 //     position: 'absolute' as 'absolute',
@@ -130,7 +138,7 @@ export function Warehouse_ImageList_View({stateful_items, openForm, onSelectItem
 
 export function Store_ImageList_View({stateful_items, openForm, onSelectItem, selectItemId}:
                 {stateful_items:any, openForm?: any, onSelectItem?:any, selectItemId?:number}){
-
+                    
     console.log(stateful_items)
     return(
         <>
@@ -152,7 +160,28 @@ export function Store_ImageList_View({stateful_items, openForm, onSelectItem, se
 }
 
 export function Product_ImageList_View({stateful_items, openForm, onSelectItem, selectItemId}:
-                {stateful_items:any, openForm: any, onSelectItem?:any, selectItemId?:number}){
+{stateful_items:any, openForm: any, onSelectItem?:any, selectItemId?:number}){
+
+    const item = useRef<any>({});
+    const [open, setOpen] = useState(false);
+    const handleOpen = (content:any) => {item.current=content; console.log(item.current); setOpen(true); }
+    const handleClose = () => setOpen(false);
+    
+    const modal_style = {
+        overflow: 'auto',
+        position: 'absolute' as 'absolute',
+        width:'70%',
+        height:'90%',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        bgcolor: '#334155ff',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        };
+
+
     return(
         <>
         <div className="grid grid-cols-4 gap-2 bg-slate-500 p-8 rounded-3xl">
@@ -162,10 +191,28 @@ export function Product_ImageList_View({stateful_items, openForm, onSelectItem, 
             </>:<>
             {stateful_items.map((i:any) => (
                 <Product_View_sm key={i.id} item={i} onEditBtnClick={() => {openForm(i)}}
+                onInventoryBtnClick={() => handleOpen(i)}
                 new_img_upload_obj_url={i.new_img_upload_obj_url}/>))
             }
             </>}
         </div>
+        <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Box sx={modal_style}>
+                    <div className='text-center text-3xl my-4'>
+                        Tra cứu hàng hóa tồn kho "{item.current.name}"
+                    </div>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
+                        <SearchPickerForm_WithView objectName="Lô hàng hóa" View={ProductBatch_Table}
+                        onPickItem={null}
+                        searchInputFields={
+                        <>
+                            <input type='hidden' value={item.current.id} name='id'></input>
+                            <Input_Text label="Kho:" placeholder="(Bất kỳ)" name='WarehouseName'/>
+                        </>} initSearchObj={{n:0, id:item.current.id}}
+                        load_API={process.env.BE_DOMAIN+"/business/product_batch/load_byProductId"} loadSize={3}/>
+                    </Typography>
+                </Box>
+            </Modal>
         </>
     )
 }

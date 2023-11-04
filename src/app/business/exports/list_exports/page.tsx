@@ -11,6 +11,7 @@ import { Input_Option, Input_Text } from "@/app/components/input_field"
 import { Export_Table, Import_Table } from "@/app/components/table"
 import { ExportDetails_Form, ImportDetails_Form } from "@/app/components/details_form"
 import Exports_Sidebar from "../sidebar"
+import { API } from "@/app/api/const"
 
 export default function Home() {
   
@@ -22,7 +23,7 @@ export default function Home() {
         <Exports_Sidebar current_tab_id={2}/>
         <div className="flex flex-col ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
             <SearchForm_WithView  View={Export_Table} CustomForm={ExportDetails_Form}
-                load_API="http://localhost:8080/warehouse_keeper/export/load" 
+                load_API={API.export.load} 
                 objectName="phiếu xuất" loadSize={5} InputFields={<>
                     <input type='hidden' name="createdBy" value={c_uid}/>
                     <Input_Text label="Ghi chú:" placeholder="(Bất kỳ)" name='note'/>

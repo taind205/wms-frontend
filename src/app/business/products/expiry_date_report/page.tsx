@@ -7,6 +7,7 @@ import { postFormData } from "@/app/func/form_action"
 import {SearchForm_WithView} from "@/app/components/searchform_withview"
 import { Input_Date, Input_Option, Input_Text } from "@/app/components/input_field"
 import { ExpiryDateReport_Table, InventoryReport_Table, Tag_Table } from "@/app/components/table"
+import { API } from "@/app/api/const"
 
 export default function Home() {
     // 
@@ -16,7 +17,7 @@ export default function Home() {
         <Products_Sidebar current_tab_id={5}/>
         <div className="flex flex-col ml-60 p-8 bg-slate-700 min-h-screen text-slate-300">
           <h1 className="text-2xl text-center my-2">Thống kê hàng sắp hết hạn</h1>
-          <ReportForm View={ExpiryDateReport_Table} Report_API="http://localhost:8080/business/product/report/expiryDate" 
+          <ReportForm View={ExpiryDateReport_Table} Report_API={API.product.expirydate_report} 
           InputFields={<>
             <Input_Option label="Chu kỳ thống kê" name='cycle' options={
                   [{value:(1000*60*60*24*30),name:'Một tháng'},{value:(1000*60*60*24*15),name:'Nửa tháng'}]} />

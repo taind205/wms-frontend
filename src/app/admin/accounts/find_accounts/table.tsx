@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { Input_Option, Input_Text } from '@/app/components/input_field';
 import { postFormData, postFormData_UpdateState } from '@/app/func/form_action';
 import { DateDisplay } from '@/app/func/convert';
+import { API } from '@/app/api/const';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -157,7 +158,7 @@ export default function Table({stateful_items, endLoad, loadMore, setStateful_it
                             Ngày tạo: {content.createdAt?.replace("T",' ').replace(".000Z","")}
                         </div>
                         <form method="post" id="form2" onSubmit={(e) => 
-                                    { postFormData_UpdateState(e,'http://localhost:8080/admin/account/update',stateful_items,setStateful_item); handleClose() }}>
+                                    { postFormData_UpdateState(e,API.acc.update,stateful_items,setStateful_item); handleClose() }}>
                             <input name='id' value={content.id} type='hidden'/>
                             <div className="flex flex-row">
                                 <div className="m-2">Loại tài khoản:</div>
