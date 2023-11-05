@@ -2,7 +2,7 @@ import { Input_Option, Input_Text } from "@/app/components/input_field"
 import Accounts_Sidebar from "../accounts_sidebar"
 // import Table from "./table"
 import Form from "./form";
-import { getFirstPage } from "../api/get/route";
+// import { getFirstPage } from "../api/get/route";
 
 export default async function Home() {
     //const itemData = await getFirstPage();

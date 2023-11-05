@@ -30,20 +30,20 @@ export async function POST(request: NextRequest) {
     }
 }
 
-export async function getFirstPage() {
+// export async function getFirstPage() {
 
-    const res = await fetch(API.acc.load+'/0', {  cache: 'no-store',
-            headers: {'Content-Type': 'application/json',}, });
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-    }
-    else{
-    const data = await res.json();
-    console.log("Fetch complete ! ... ",data);
-    return data
-    }
-}
+//     const res = await fetch(API.acc.load+'/0', {  cache: 'no-store',
+//             headers: {'Content-Type': 'application/json',}, });
+//     if (!res.ok) {
+//         // This will activate the closest `error.js` Error Boundary
+//         throw new Error('Failed to fetch data')
+//     }
+//     else{
+//     const data = await res.json();
+//     console.log("Fetch complete ! ... ",data);
+//     return data
+//     }
+// }
     
     // const input = await request.json();
     // input.password='123';
