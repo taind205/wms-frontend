@@ -79,7 +79,7 @@ export default function TopBar({pages, childpages}:{pages:any, childpages:Array<
                 ))}</>
                     :
                     <>{pages.slice(0,4).map((p:{name:string, link:string}, index:number) => (
-                        <Link className='mx-4 self-center' href={p.link}>{p.name} key={index}</Link>
+                        <Link className='mx-4 self-center' href={p.link} key={index}>{p.name}</Link>
                     ))}
                     <div className='px-6 py-2 self-center shrink-0' onMouseLeave={() => setIsShown(false)}>
                         <button onMouseEnter={() => setIsShown(true)}>
