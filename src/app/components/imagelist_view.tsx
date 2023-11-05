@@ -199,7 +199,7 @@ export function Product_ImageList_View({stateful_items, openForm, onSelectItem, 
         <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={modal_style}>
                     <div className='text-center text-3xl my-4'>
-                        Tra cứu hàng hóa tồn kho "{item.current.name}"
+                        Tra cứu hàng hóa tồn kho &quot;{item.current.name}&quot;
                     </div>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
                         <SearchPickerForm_WithView objectName="Lô hàng hóa" View={ProductBatch_Table}

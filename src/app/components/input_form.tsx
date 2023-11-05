@@ -393,7 +393,7 @@ export function ImportProductLocations_Form({importProducts, init_details, onSub
           </div>
           :
           importProducts.map((i:any, index:number)=>(
-          <div className="flex flex-row w-full bg-slate-800 space-x-2 m-2 p-3">
+          <div key={index} className="flex flex-row w-full bg-slate-800 space-x-2 m-2 p-3">
             <div className="w-1/2 self-center">
               <ProductBatch_View item={i}/>
             </div>
@@ -561,7 +561,7 @@ export function ExportProductLocations_Form({exportProducts, init_details, onSub
           </div>
           :
           exportProducts.map((i:any, index:number)=>(
-          <div className="flex flex-row w-full bg-slate-800 space-x-2 m-2 p-3">
+          <div key={index} className="flex flex-row w-full bg-slate-800 space-x-2 m-2 p-3">
             <div className="w-1/2 self-center">
               <ProductBatch_View item={i}/>
             </div>
@@ -747,7 +747,7 @@ export function Export_Form({init_value, button_title, onSubmit}:{init_value?:an
              openPicker={()=>{setOpen(true); setModalNum(2);}}
              displayedItem={<> 
           {products.map((i:any, index:number)=>(
-          <div className="flex flex-row w-full bg-slate-800 space-x-2 p-3">
+          <div key={index} className="flex flex-row w-full bg-slate-800 space-x-2 p-3">
             <div className="w-1/3 self-center">
               <Product_SmallView item={i}/>
             </div>

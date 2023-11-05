@@ -152,7 +152,8 @@ export function Input_Option_QuickSearch({objectName, placeholder, inputName, in
                 {Open && ( <div className='absolute top-0 translate-y-8 bg-slate-300 text-black flex flex-col'>
                         {options.length<1? <div className="my-1 mx-4"> Không tìm thấy kết quả </div> : 
                         options.map((v:any,index:number) => (
-                            <button type="button" className={'text-left py-1 px-4 w-full hover:bg-sky-300'+ (index+1==currentOption?' bg-sky-300':'')}
+                            <button type="button" key={index}
+                            className={'text-left py-1 px-4 w-full hover:bg-sky-300'+ (index+1==currentOption?' bg-sky-300':'')}
                             onClick={()=>{setSelect(v); setInputValue('');} }>
                                 {v.fullname}</button>
                     ))}</div>)}
@@ -274,7 +275,8 @@ export function Input_ListOption_QuickSearch({objectName, placeholder, inputName
                 {Open && ( <div className='absolute top-0 translate-y-8 bg-slate-300 text-black flex flex-col'>
                         {options.length<1? <div className="my-1 mx-4"> Không tìm thấy kết quả </div> : 
                         options.map((v:any,index:number) => (
-                            <button type="button" className={'text-left py-1 px-4 w-full hover:bg-sky-300 whitespace-pre-line'
+                            <button type="button" key={index}
+                             className={'text-left py-1 px-4 w-full hover:bg-sky-300 whitespace-pre-line'
                                                             + (index+1==currentOption?' bg-sky-300':'')}
                             onClick={()=>{addSelect(v); setInputValue('');} }>
                                 <ResultText value={v}/></button>
