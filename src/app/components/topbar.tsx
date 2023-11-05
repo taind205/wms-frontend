@@ -67,7 +67,7 @@ export default function TopBar({pages, childpages}:{pages:any, childpages:Array<
                     {openSearch && ( <div className='absolute top-0 translate-y-8 bg-slate-300 text-black flex flex-col w-60'>
                             {options.length<1? <div className="my-1 mx-4"> Không tìm thấy kết quả </div> : 
                             options.map((v:any,index:number) => (
-                                <Link className={'text-left py-1 px-4 w-full hover:bg-sky-300'}
+                                <Link className={'text-left py-1 px-4 w-full hover:bg-sky-300'} key={index} 
                                 onClick={()=>{setInputValue(''); setOpenSearch(false)} } href={v.link}>
                                     {v.name}</Link>
                         ))}</div>)}
@@ -78,8 +78,8 @@ export default function TopBar({pages, childpages}:{pages:any, childpages:Array<
                     <Link className='mx-4 self-center' key={p.id} href={p.link}>{p.name}</Link>
                 ))}</>
                     :
-                    <>{pages.slice(0,4).map((p:{name:string, link:string}) => (
-                        <Link className='mx-4 self-center' href={p.link}>{p.name}</Link>
+                    <>{pages.slice(0,4).map((p:{name:string, link:string}, index:number) => (
+                        <Link className='mx-4 self-center' href={p.link}>{p.name} key={index}</Link>
                     ))}
                     <div className='px-6 py-2 self-center shrink-0' onMouseLeave={() => setIsShown(false)}>
                         <button onMouseEnter={() => setIsShown(true)}>
