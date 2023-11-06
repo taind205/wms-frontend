@@ -11,6 +11,8 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+const bedomain = process.env.NEXT_PUBLIC_BE_DOMAIN;
+
 export function SearchForm_WithView({View, UpdateForm, CustomForm, InputFields, load_API, update_API,
              objectName, loadSize=2, init_searchObj={n:0}}
         :{View:any, UpdateForm?:any, CustomForm?:any, InputFields:React.JSX.Element, load_API:string,
@@ -44,7 +46,7 @@ export function SearchForm_WithView({View, UpdateForm, CustomForm, InputFields, 
         const res = await fetch(load_API +'?'+ new URLSearchParams(searchObjectRef.current).toString(), 
         { method: 'GET', headers: {'Content-Type': 'application/json', 
         // 'Access-Control-Allow-Credentials': 'true', 
-        // 'Access-Control-Allow-Origin':'http://localhost:8080'
+        // 'Access-Control-Allow-Origin': bedomain
         }, credentials: "include" });
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary

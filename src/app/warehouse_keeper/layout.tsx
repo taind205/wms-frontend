@@ -30,7 +30,7 @@ export default async function WarehouseKeeper_Layout({
     const cookieStore = cookies()
   // // const account = cookieStore.get('AccountId');
   // const role = cookieStore.get('Role')?.value;
-  const jwt = cookieStore.get('jwt')?.value;
+  const jwt = cookieStore.get('jwt2')?.value;
 
   if(!jwt)
     { redirect('/'); return;}
@@ -39,6 +39,8 @@ export default async function WarehouseKeeper_Layout({
     const role = await fetch(API.role, 
     { method: 'GET', headers: {'Content-Type': 'application/json', 'Authorization': jwt } });
     const data = await role.json();
+
+    console.log("@@@check role")
   
     if(data.role==1)
       {redirect('/admin');

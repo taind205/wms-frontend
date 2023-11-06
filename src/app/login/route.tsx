@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     // const q4 = input.role ? '&role='+input.role : '';
     // const q5 = input.status ? '&status='+input.status : '';
     console.log("start fetch"+'/login/');//+q1+'?'+q2+q3+q4+q5);
-    const res = await fetch(API.login//+q1+'?'+q2+q3+q4+q5, 
+    const res = await fetch(API.login.serverside//+q1+'?'+q2+q3+q4+q5, 
     ,{ method:'POST', body: JSON.stringify(input), headers: {'Content-Type': 'application/json',}, });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
@@ -27,13 +27,13 @@ export async function POST(request: NextRequest) {
     if(!data.stt) 
     {
     cookies().set({
-        name: 'jwt',
+        name: 'jwt2',
         value: data.jwt,
         httpOnly: true,
         sameSite: 'none',
         secure: true,
-        path: '/',
-      })
+        path: '/'
+        });
     }
     
     return NextResponse.json(data);

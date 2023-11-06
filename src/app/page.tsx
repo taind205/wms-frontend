@@ -11,7 +11,7 @@ export default async function Home() {
   const cookieStore = cookies()
   // // const account = cookieStore.get('AccountId');
   // const role = cookieStore.get('Role')?.value;
-  const jwt = cookieStore.get('jwt')?.value;
+  const jwt = cookieStore.get('jwt2')?.value;
 
   if(jwt)
   {

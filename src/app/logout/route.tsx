@@ -7,7 +7,8 @@ export async function GET(request: NextRequest) {
     console.log('get a logout request...')
     // {cookies().delete('Role');
     // cookies().delete('fullName');}
-    cookies().delete('jwt')
+    cookies().delete('jwt2')
+    // cookies().delete('jwt')
     redirect('/');
     // return NextResponse.json(data) 
     // }

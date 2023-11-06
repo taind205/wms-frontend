@@ -4,7 +4,8 @@ export const postFormData = async (event:any,link:string, list?:Array<any>, HTTP
     console.log("Post form & receive msg...")
     event.preventDefault();
     const form = event.target;
-    const formData = new FormData(form);
+    let formData = new FormData(form);
+    if(!formData.get('id')) formData.delete('id');
     let res:any
     if(event.target.getAttribute("enctype")!="multipart/form-data")
     {

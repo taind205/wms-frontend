@@ -5,8 +5,8 @@ import { API } from '@/app/api/const';
  
 export async function POST(request: NextRequest) {
     const cookieStore = cookies()
-    const jwt = cookieStore.get('jwt')?.value||'';
-    console.log('get jwt', jwt);
+    const jwt = cookieStore.get('jwt2')?.value||'';
+    console.log('get jwt2', jwt);
     console.log('get a post request...')
     const input = await request.json();
     console.log(input);

@@ -32,17 +32,23 @@ export function LoginForm() {
     if(!formJson.id) { alert("Chưa nhập tên tài khoản! ErrCode:id_"); return;} 
     if(!formJson.password) { alert("Chưa nhập mật khẩu! ErrCode:"); return;} 
 
-    res = await fetch('./login', 
-    { method: 'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'} });
-    const d = await res.json();
-    if(d.fullName)
-      { sessionStorage.setItem("fullName", d.fullName);
-        sessionStorage.setItem("UserId", d.UserId);
-        if(d.WarehouseId)
-          sessionStorage.setItem("WarehouseId", d.WarehouseId);}
-    console.log(d);
-    alert(d.msg);
-    location.reload();
+    res = await fetch(API.login.browser, 
+    { method: 'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'}, credentials:"include"});
+    const d1 = await res.json();
+    console.log(res);
+    if(d1.fullName) {
+      res = await fetch('./login', 
+      { method: 'POST', body: JSON.stringify(formJson), headers: {'Content-Type': 'application/json'} });
+      const d = await res.json();
+      if(d.fullName)
+        { sessionStorage.setItem("fullName", d.fullName);
+          sessionStorage.setItem("UserId", d.UserId);
+          if(d.WarehouseId)
+            sessionStorage.setItem("WarehouseId", d.WarehouseId);}
+      console.log(d);
+      alert(d.msg);
+      location.reload();
+    }
   }
 
   return(

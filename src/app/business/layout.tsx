@@ -30,7 +30,9 @@ export default async function BusinessLayout({
     const cookieStore = cookies()
     // // const account = cookieStore.get('AccountId');
     // const role = cookieStore.get('Role')?.value;
-    const jwt = cookieStore.get('jwt')?.value;
+    const jwt = cookieStore.get('jwt2')?.value;
+
+    console.log("@@@@check role")
   
     if(!jwt)
     { redirect('/'); return;}

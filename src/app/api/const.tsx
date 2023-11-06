@@ -1,7 +1,10 @@
 const domain = process.env.NEXT_PUBLIC_BE_DOMAIN
 
 export const API = {
-    login:      domain+'/login',
+    login:{
+        serverside:     domain+'/login_s',
+        browser:        domain+'/login_b',},
+        
     role:       domain+'/role/get',
 
     userinfo:{
